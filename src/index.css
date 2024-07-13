@@ -1,0 +1,58 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+body {
+  background: #fafbfa;
+}
+* {
+  box-sizing: border-box;
+}
+.nunito-normal {
+  font-family: "Nunito", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+}
+.text-primary {
+  color: #155eef;
+}
+.text-secondary {
+  color: rgb(136, 142, 168);
+}
+
+.bg-primary {
+  background-color: #155eef !important;
+}
+.bg-secondary {
+  background-color: #888ea8;
+}
+.bg-secondary\/40 {
+  background-color: rgb(136, 142, 168, 0.4);
+}
+.bg-secondary\/20 {
+  background-color: rgb(136, 142, 168, 0.2);
+}
+.bg-secondary\/10 {
+  background-color: rgb(136, 142, 168, 0.1);
+}
+.bg-light-blue {
+  background-color: #edf5ff;
+}
+.bg-light-blue\/20 {
+  background-color: rgb(237, 245, 255, 0.2);
+}
+.bg-light-blue\/40 {
+  background-color: rgb(237, 245, 255, 0.4);
+}
+.bg-light-blue\/60 {
+  background-color: rgb(237, 245, 255, 0.6);
+}
+.bg-calender {
+  background-color: #2673dd08;
+}
+
+.regionTextCount::-webkit-scrollbar {
+  appearance: none;
+  display: none;
+}
