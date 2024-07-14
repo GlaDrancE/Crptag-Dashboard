@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import LayoutComponent from "./Layout";
 import { BsThreeDots } from "react-icons/bs";
-import {
-  ComposableMap,
-  Geographies,
-  Geography,
-  Marker,
-} from "react-simple-maps";
+// import {
+//   ComposableMap,
+//   Geographies,
+//   Geography,
+//   Marker,
+// } from "react-simple-maps";
 import {
   Chart,
   ArcElement,
@@ -30,7 +30,7 @@ import {
   Pie,
   Cell,
 } from "recharts";
-import MapChart, { MapData } from "./MapChart.tsx";
+import MapChart, { MapData } from "./MapChart";
 
 const data = [
   { name: "Blacklisted UID", value: 126 },

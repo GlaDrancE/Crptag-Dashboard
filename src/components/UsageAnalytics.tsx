@@ -159,12 +159,7 @@
 import React, { useState, useEffect } from "react";
 import LayoutComponent from "./Layout";
 import { BsThreeDots } from "react-icons/bs";
-import {
-  ComposableMap,
-  Geographies,
-  Geography,
-  Marker,
-} from "react-simple-maps";
+
 import {
   Chart,
   ArcElement,
@@ -175,7 +170,6 @@ import {
   BarElement,
   Title,
 } from "chart.js";
-import { Doughnut } from "react-chartjs-2";
 import {
   BarChart,
   Bar,
@@ -200,8 +194,8 @@ Chart.register(
 );
 
 // Valid GeoJSON URL for India
-const geoUrl =
-  "https://raw.githubusercontent.com/datameet/maps/master/geojson/country/india_telengana.geojson";
+// const geoUrl =
+//   "https://raw.githubusercontent.com/datameet/maps/master/geojson/country/india_telengana.geojson";
 
 const sampleOverviewData = {
   totalScanCount: 1420,

@@ -3,7 +3,11 @@ import axios from "axios";
 import { MdOutlineVpnLock } from "react-icons/md";
 
 interface EmailLoginProps {
-  onNext: (user: { first_name: string; last_name: string }) => void;
+  onNext: (user: {
+    first_name: string;
+    last_name: string;
+    password: string;
+  }) => void;
 }
 
 const EmailLogin: React.FC<EmailLoginProps> = ({ onNext }) => {

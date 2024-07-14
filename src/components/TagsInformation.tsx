@@ -251,7 +251,7 @@ const TagInfoTable = () => {
   const [itemsPerPage, setItemsPerPage] = useState(20);
   const [showEditModal, setShowEditModal] = useState(false);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
-  const [selectedTag, setSelectedTag] = useState(null);
+  const [selectedTag, setSelectedTag] = useState<any>(null);
 
   // Fetch tags data from API
   useEffect(() => {
@@ -268,7 +268,7 @@ const TagInfoTable = () => {
     fetchTagsData();
   }, []);
 
-  const convertDateFormat = (dateStr) => {
+  const convertDateFormat = (dateStr: any) => {
     const date = new Date(dateStr);
     const day = date.getDate().toString().padStart(2, "0");
     const month = (date.getMonth() + 1).toString().padStart(2, "0");
@@ -279,7 +279,7 @@ const TagInfoTable = () => {
   };
 
   const handleSearch = () => {
-    const filtered = tagsData.filter((tag) => {
+    const filtered = tagsData.filter((tag: any) => {
       const formattedLastScanDateTime = convertDateFormat(tag.lastscandatetime);
 
       return (
@@ -307,16 +307,16 @@ const TagInfoTable = () => {
     setCurrentPage(1); // Reset to the first page on new search
   };
 
-  const handlePageChange = (page) => {
+  const handlePageChange = (page: any) => {
     setCurrentPage(page);
   };
 
-  const handleItemsPerPageChange = (event) => {
+  const handleItemsPerPageChange = (event: any) => {
     setItemsPerPage(Number(event.target.value));
     setCurrentPage(1); // Reset to the first page on items per page change
   };
 
-  const handleEditButtonClick = (tag) => {
+  const handleEditButtonClick = (tag: any) => {
     console.log("tag to edit", tag);
     setSelectedTag(tag);
     setShowEditModal(true);
@@ -325,7 +325,7 @@ const TagInfoTable = () => {
   const handleSaveChanges = () => {
     // Logic to save changes to the server
     // Example:
-    console.log(selectedTag.clientid);
+    // console.log(selectedTag.clientid);
     axios
       .put(
         `https://api.cryptag.in/v1/update-tag/${selectedTag.clientid}`,
@@ -339,7 +339,7 @@ const TagInfoTable = () => {
     // setShowEditModal(false);
   };
 
-  const handleRevokeButtonClick = (tag) => {
+  const handleRevokeButtonClick = (tag: any) => {
     setSelectedTag(tag);
     setShowConfirmModal(true);
   };
@@ -347,6 +347,9 @@ const TagInfoTable = () => {
   const handleConfirmRevoke = () => {
     // Logic to update tag status
     // Example:
+    if (!selectedTag) {
+      return;
+    }
     const updatedTag = {
       ...selectedTag,
       tagstatus: selectedTag.tagstatus === "Active" ? "Revoked" : "Active",
@@ -494,7 +497,7 @@ const TagInfoTable = () => {
             </tr>
           </thead>
           <tbody>
-            {currentItems.map((tag, index) => (
+            {currentItems.map((tag: any, index: number) => (
               <tr key={index}>
                 <td className="py-2 px-4 border-b text-center">
                   {tag.client ? tag.client.username : ""}

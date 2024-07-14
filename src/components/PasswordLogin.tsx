@@ -64,7 +64,6 @@
 
 // export default PasswordLogin;
 
-
 // import React, { useState } from "react";
 // import { MdOutlineVpnLock } from 'react-icons/md'
 // import { FaAngleDown } from "react-icons/fa";
@@ -127,25 +126,25 @@
 // export default PasswordLogin;
 
 import React, { useState } from "react";
-import { MdOutlineVpnLock } from 'react-icons/md';
+import { MdOutlineVpnLock } from "react-icons/md";
 import { FaAngleDown } from "react-icons/fa";
 import { HiUserCircle } from "react-icons/hi";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 interface PasswordLoginProps {
   user: { first_name: string; last_name: string; password: string };
 }
 
 const PasswordLogin: React.FC<PasswordLoginProps> = ({ user }) => {
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
   const handleLogin = () => {
     if (password === user.password) {
-      navigate('/dashboard');  // Redirect to dashboard
+      navigate("/dashboard"); // Redirect to dashboard
     } else {
-      setError('Password does not match. Please try again.');
+      setError("Password does not match. Please try again.");
     }
   };
 
@@ -179,7 +178,8 @@ const PasswordLogin: React.FC<PasswordLoginProps> = ({ user }) => {
           </div>
           <div className="mb-20 flex items-center">
             <span>
-              <span className='text-blue-700'>Cryptag</span> Secure Network Connected
+              <span className="text-blue-700">Cryptag</span> Secure Network
+              Connected
             </span>
             <MdOutlineVpnLock className="ml-2" color="green" />
           </div>

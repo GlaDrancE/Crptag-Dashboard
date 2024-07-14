@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
-import axios from 'axios';
-import { FaLock, FaCog, FaTrash } from 'react-icons/fa';
+import axios from "axios";
+import { FaLock, FaTrash } from "react-icons/fa";
 import LayoutComponent from "./Layout";
 import { AiOutlineSetting } from "react-icons/ai";
 import { toast } from "react-toastify";
 
 interface User {
+  id: number;
   first_name: string;
   last_name: string;
   email: string;
@@ -28,12 +29,14 @@ const Modal: React.FC<ModalProps> = ({ title, onClose, onSave, children }) => {
           <h2 className="text-xl">{title}</h2>
           <button onClick={onClose}>X</button>
         </div>
-        <div className="mt-4">
-          {children}
-        </div>
+        <div className="mt-4">{children}</div>
         <div className="flex justify-end mt-4">
-          <button className="border px-4 py-2 mr-2" onClick={onSave}>Save</button>
-          <button className="border px-4 py-2" onClick={onClose}>Cancel</button>
+          <button className="border px-4 py-2 mr-2" onClick={onSave}>
+            Save
+          </button>
+          <button className="border px-4 py-2" onClick={onClose}>
+            Cancel
+          </button>
         </div>
       </div>
     </div>
@@ -44,13 +47,13 @@ const UserManagement1: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [usersPerPage] = useState(10);
   const [users, setUsers] = useState<User[]>([]);
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
   const [showChangePasswordModal, setShowChangePasswordModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showEditUserModal, setShowEditUserModal] = useState(false);
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
-  const [newPassword, setNewPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
   useEffect(() => {
     fetchUsers();
@@ -58,17 +61,18 @@ const UserManagement1: React.FC = () => {
 
   const fetchUsers = async () => {
     try {
-      const response = await axios.get('https://api.cryptag.in/v1/admin-user');
+      const response = await axios.get("https://api.cryptag.in/v1/admin-user");
       setUsers(response.data);
     } catch (error) {
-      console.error('Failed to fetch users', error);
+      console.error("Failed to fetch users", error);
     }
   };
 
-  const filteredUsers = users.filter(user =>
-    user.first_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    user.last_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    user.email.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredUsers = users.filter(
+    (user) =>
+      user.first_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      user.last_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      user.email.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   const indexOfLastUser = currentPage * usersPerPage;
@@ -83,8 +87,8 @@ const UserManagement1: React.FC = () => {
   };
 
   const handleDeleteUser = (user: User) => {
-    const adminCount = users.filter(u => u.permission === 'Admin').length;
-    if (user.permission === 'Admin' && adminCount === 1) {
+    const adminCount = users.filter((u) => u.permission === "Admin").length;
+    if (user.permission === "Admin" && adminCount === 1) {
       toast.error("At least one admin must be present");
       return;
     }
@@ -104,25 +108,30 @@ const UserManagement1: React.FC = () => {
     }
 
     try {
-      await axios.put(`https://api.cryptag.in/v1/admin-user/${selectedUser?.id}`, { ...selectedUser, password: newPassword });
+      await axios.put(
+        `https://api.cryptag.in/v1/admin-user/${selectedUser?.id}`,
+        { ...selectedUser, password: newPassword }
+      );
       setShowChangePasswordModal(false);
-      setNewPassword('');
-      setConfirmPassword('');
+      setNewPassword("");
+      setConfirmPassword("");
       toast.success("Password updated successfully");
     } catch (error) {
-      console.error('Failed to update password', error);
+      console.error("Failed to update password", error);
       toast.error("Failed to update password");
     }
   };
 
   const handleConfirmDelete = async () => {
     try {
-      await axios.delete(`https://api.cryptag.in/v1/admin-user/${selectedUser?.id}`);
-      setUsers(users.filter(user => user.id !== selectedUser?.id));
+      await axios.delete(
+        `https://api.cryptag.in/v1/admin-user/${selectedUser?.id}`
+      );
+      setUsers(users.filter((user) => user.id !== selectedUser?.id));
       setShowDeleteModal(false);
       toast.success("User deleted successfully");
     } catch (error) {
-      console.error('Failed to delete user', error);
+      console.error("Failed to delete user", error);
       toast.error("Failed to delete user");
     }
   };
@@ -130,12 +139,19 @@ const UserManagement1: React.FC = () => {
   const handleSaveUser = async () => {
     if (selectedUser) {
       try {
-        await axios.put(`https://api.cryptag.in/v1/admin-user/${selectedUser.id}`, selectedUser);
-        setUsers(users.map(user => user.id === selectedUser.id ? selectedUser : user));
+        await axios.put(
+          `https://api.cryptag.in/v1/admin-user/${selectedUser.id}`,
+          selectedUser
+        );
+        setUsers(
+          users.map((user) =>
+            user.id === selectedUser.id ? selectedUser : user
+          )
+        );
         setShowEditUserModal(false);
         toast.success("User updated successfully");
       } catch (error) {
-        console.error('Failed to update user', error);
+        console.error("Failed to update user", error);
         toast.error("Failed to update user");
       }
     }
@@ -169,38 +185,54 @@ const UserManagement1: React.FC = () => {
           <tbody>
             {currentUsers.map((user) => (
               <tr key={user.id}>
-                <td className="py-2 px-4 border-b text-center">{user.first_name}</td>
-                <td className="py-2 px-4 border-b text-center">{user.last_name}</td>
+                <td className="py-2 px-4 border-b text-center">
+                  {user.first_name}
+                </td>
+                <td className="py-2 px-4 border-b text-center">
+                  {user.last_name}
+                </td>
                 <td className="py-2 px-4 border-b text-center">{user.email}</td>
                 <td className="py-2 px-4 border-b text-center">
                   <div className="flex items-center justify-center">
-                  <button
-                    className="bg-gray-300 px-3 py-1 rounded flex items-center space-x-2 hover:bg-gray-400"
-                    onClick={() => handleChangePassword(user)}
-                  >
-                    <FaLock />
-                    <span>Change Password</span>
-                  </button>
+                    <button
+                      className="bg-gray-300 px-3 py-1 rounded flex items-center space-x-2 hover:bg-gray-400"
+                      onClick={() => handleChangePassword(user)}
+                    >
+                      <FaLock />
+                      <span>Change Password</span>
+                    </button>
                   </div>
                 </td>
                 <td className="py-2 px-4 border-b text-center">
                   <div className="flex items-center justify-center ">
                     <div className="bg-blue-500 text-white tex-center rounded-full h-8 w-8">
-                    {user.profile}
+                      {user.profile}
                     </div>
                   </div>
                 </td>
                 <td className="py-2 px-4 border-b text-center">
-                  <span className={`px-2 py-1 rounded ${user.permission === 'Admin' ? 'bg-green-200' : 'bg-yellow-200'}`}>
+                  <span
+                    className={`px-2 py-1 rounded ${
+                      user.permission === "Admin"
+                        ? "bg-green-200"
+                        : "bg-yellow-200"
+                    }`}
+                  >
                     {user.permission}
                   </span>
                 </td>
                 <td className="py-2 px-4 border-b text-center">
                   <div className="flex items-center justify-center space-x-2">
-                    <button className="text-blue-500 hover:text-blue-700" onClick={() => handleEditUser(user)}>
+                    <button
+                      className="text-blue-500 hover:text-blue-700"
+                      onClick={() => handleEditUser(user)}
+                    >
                       <AiOutlineSetting />
                     </button>
-                    <button className="text-red-500 hover:text-red-700" onClick={() => handleDeleteUser(user)}>
+                    <button
+                      className="text-red-500 hover:text-red-700"
+                      onClick={() => handleDeleteUser(user)}
+                    >
                       <FaTrash />
                     </button>
                   </div>
@@ -211,29 +243,46 @@ const UserManagement1: React.FC = () => {
         </table>
         <div className="flex justify-between items-center mt-4">
           <div>
-            Showing {indexOfFirstUser + 1} to {Math.min(indexOfLastUser, filteredUsers.length)} of {filteredUsers.length} entries
+            Showing {indexOfFirstUser + 1} to{" "}
+            {Math.min(indexOfLastUser, filteredUsers.length)} of{" "}
+            {filteredUsers.length} entries
           </div>
           <div className="flex items-center space-x-1">
             <button
               onClick={() => paginate(1)}
-              className={`border px-2 py-1 ${currentPage === 1 ? 'bg-gray-200' : ''}`}
+              className={`border px-2 py-1 ${
+                currentPage === 1 ? "bg-gray-200" : ""
+              }`}
               disabled={currentPage === 1}
             >
               &laquo;
             </button>
-            {Array.from({ length: Math.ceil(filteredUsers.length / usersPerPage) }, (_, i) => i + 1).map(number => (
+            {Array.from(
+              { length: Math.ceil(filteredUsers.length / usersPerPage) },
+              (_, i) => i + 1
+            ).map((number) => (
               <button
                 key={number}
                 onClick={() => paginate(number)}
-                className={`border px-2 py-1 ${currentPage === number ? 'bg-blue-500 text-white' : ''}`}
+                className={`border px-2 py-1 ${
+                  currentPage === number ? "bg-blue-500 text-white" : ""
+                }`}
               >
                 {number}
               </button>
             ))}
             <button
-              onClick={() => paginate(Math.ceil(filteredUsers.length / usersPerPage))}
-              className={`border px-2 py-1 ${currentPage === Math.ceil(filteredUsers.length / usersPerPage) ? 'bg-gray-200' : ''}`}
-              disabled={currentPage === Math.ceil(filteredUsers.length / usersPerPage)}
+              onClick={() =>
+                paginate(Math.ceil(filteredUsers.length / usersPerPage))
+              }
+              className={`border px-2 py-1 ${
+                currentPage === Math.ceil(filteredUsers.length / usersPerPage)
+                  ? "bg-gray-200"
+                  : ""
+              }`}
+              disabled={
+                currentPage === Math.ceil(filteredUsers.length / usersPerPage)
+              }
             >
               &raquo;
             </button>
@@ -261,7 +310,11 @@ const UserManagement1: React.FC = () => {
               <label className="block">Confirm Password</label>
               <input
                 type="password"
-                className={`border p-2 w-full ${confirmPassword && newPassword !== confirmPassword ? 'border-red-500' : ''}`}
+                className={`border p-2 w-full ${
+                  confirmPassword && newPassword !== confirmPassword
+                    ? "border-red-500"
+                    : ""
+                }`}
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
               />
@@ -279,7 +332,8 @@ const UserManagement1: React.FC = () => {
           onClose={() => setShowDeleteModal(false)}
           onSave={handleConfirmDelete}
         >
-          Are you sure you want to delete {selectedUser?.first_name} {selectedUser?.last_name}?
+          Are you sure you want to delete {selectedUser?.first_name}{" "}
+          {selectedUser?.last_name}?
         </Modal>
       )}
 
@@ -295,8 +349,13 @@ const UserManagement1: React.FC = () => {
               <input
                 type="text"
                 className="border p-2 w-full"
-                value={selectedUser?.first_name || ''}
-                onChange={(e) => setSelectedUser({ ...selectedUser, first_name: e.target.value } as User)}
+                value={selectedUser?.first_name || ""}
+                onChange={(e) =>
+                  setSelectedUser({
+                    ...selectedUser,
+                    first_name: e.target.value,
+                  } as User)
+                }
               />
             </div>
             <div>
@@ -304,8 +363,13 @@ const UserManagement1: React.FC = () => {
               <input
                 type="text"
                 className="border p-2 w-full"
-                value={selectedUser?.last_name || ''}
-                onChange={(e) => setSelectedUser({ ...selectedUser, last_name: e.target.value } as User)}
+                value={selectedUser?.last_name || ""}
+                onChange={(e) =>
+                  setSelectedUser({
+                    ...selectedUser,
+                    last_name: e.target.value,
+                  } as User)
+                }
               />
             </div>
             <div>
@@ -313,8 +377,13 @@ const UserManagement1: React.FC = () => {
               <input
                 type="email"
                 className="border p-2 w-full"
-                value={selectedUser?.email || ''}
-                onChange={(e) => setSelectedUser({ ...selectedUser, email: e.target.value } as User)}
+                value={selectedUser?.email || ""}
+                onChange={(e) =>
+                  setSelectedUser({
+                    ...selectedUser,
+                    email: e.target.value,
+                  } as User)
+                }
               />
             </div>
             <div>
@@ -322,16 +391,26 @@ const UserManagement1: React.FC = () => {
               <input
                 type="text"
                 className="border p-2 w-full"
-                value={selectedUser?.profile || ''}
-                onChange={(e) => setSelectedUser({ ...selectedUser, profile: e.target.value } as User)}
+                value={selectedUser?.profile || ""}
+                onChange={(e) =>
+                  setSelectedUser({
+                    ...selectedUser,
+                    profile: e.target.value,
+                  } as User)
+                }
               />
             </div>
             <div>
               <label className="block">Permission</label>
               <select
                 className="border p-2 w-full"
-                value={selectedUser?.permission || ''}
-                onChange={(e) => setSelectedUser({ ...selectedUser, permission: e.target.value } as User)}
+                value={selectedUser?.permission || ""}
+                onChange={(e) =>
+                  setSelectedUser({
+                    ...selectedUser,
+                    permission: e.target.value,
+                  } as User)
+                }
               >
                 <option value="">Select Permission</option>
                 <option value="Admin">Admin</option>
