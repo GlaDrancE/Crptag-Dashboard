@@ -7,7 +7,11 @@ import LayoutComponent from "./Layout";
 
 const VerificationFlowDocs: React.FC = () => {
   return (
-    <LayoutComponent title="Documentation" subtitle="Verification Flow Docs">
+    <LayoutComponent
+      title="Documentation"
+      link="/verification-flow-docs"
+      subtitle="Verification Flow Docs"
+    >
       <></>
     </LayoutComponent>
   );

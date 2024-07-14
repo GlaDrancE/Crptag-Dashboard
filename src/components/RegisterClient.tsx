@@ -151,7 +151,11 @@ const RegisterClient: React.FC = () => {
 
   return (
     <div>
-      <LayoutComponent title="Tag Management" subtitle="Add Tags">
+      <LayoutComponent
+        title="Tag Management"
+        link="/add-tags"
+        subtitle="Add Tags"
+      >
         <div>
           <div className=" w-full h-6 mt-[1%] mb-[1%] flex justify-between">
             <div className="ml-[1%] font-semibold">Register Client</div>

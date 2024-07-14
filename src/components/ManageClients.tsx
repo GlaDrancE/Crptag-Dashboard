@@ -40,7 +40,6 @@
 //   );
 // };
 
-
 // const ClientTable: React.FC = () => {
 //   const [clients, setClients] = useState<Client[]>([]);
 //   const [loading, setLoading] = useState(true);
@@ -226,8 +225,8 @@
 // export default ManageClients;
 
 import React, { useState, useEffect } from "react";
-import axios from 'axios';
-import { FaTrash, FaPen } from 'react-icons/fa';
+import axios from "axios";
+import { FaTrash, FaPen } from "react-icons/fa";
 import LayoutComponent from "./Layout";
 
 interface Client {
@@ -255,12 +254,14 @@ const Modal: React.FC<ModalProps> = ({ title, onClose, onSave, children }) => {
           <h2 className="text-xl">{title}</h2>
           <button onClick={onClose}>X</button>
         </div>
-        <div className="mt-4">
-          {children}
-        </div>
+        <div className="mt-4">{children}</div>
         <div className="flex justify-end mt-4">
-          <button className="border px-4 py-2 mr-2" onClick={onSave}>Yes</button>
-          <button className="border px-4 py-2" onClick={onClose}>Cancel</button>
+          <button className="border px-4 py-2 mr-2" onClick={onSave}>
+            Yes
+          </button>
+          <button className="border px-4 py-2" onClick={onClose}>
+            Cancel
+          </button>
         </div>
       </div>
     </div>
@@ -283,12 +284,16 @@ const ClientTable: React.FC = () => {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get('https://api.cryptag.in/v1/manage-clients');
-      const sortedClients = response.data.sort((a: Client, b: Client) => a.id - b.id);
+      const response = await axios.get(
+        "https://api.cryptag.in/v1/manage-clients"
+      );
+      const sortedClients = response.data.sort(
+        (a: Client, b: Client) => a.id - b.id
+      );
       setClients(sortedClients);
       setLoading(false);
     } catch (err) {
-      setError('Failed to fetch data');
+      setError("Failed to fetch data");
       setLoading(false);
     }
   };
@@ -306,22 +311,27 @@ const ClientTable: React.FC = () => {
   const handleUpdateClient = async () => {
     if (!selectedClient) return;
     try {
-      await axios.put(`https://api.cryptag.in/v1/manage-clients/${selectedClient.id}`, selectedClient);
+      await axios.put(
+        `https://api.cryptag.in/v1/manage-clients/${selectedClient.id}`,
+        selectedClient
+      );
       fetchData();
       setShowEditModal(false);
     } catch (err) {
-      setError('Failed to update client');
+      setError("Failed to update client");
     }
   };
 
   const handleConfirmDelete = async () => {
     if (!selectedClient) return;
     try {
-      await axios.delete(`https://api.cryptag.in/v1/delete-client/${selectedClient.id}`);
-      setClients(clients.filter(client => client.id !== selectedClient.id));
+      await axios.delete(
+        `https://api.cryptag.in/v1/delete-client/${selectedClient.id}`
+      );
+      setClients(clients.filter((client) => client.id !== selectedClient.id));
       setShowDeleteModal(false);
     } catch (err) {
-      setError('Failed to delete client');
+      setError("Failed to delete client");
     }
   };
 
@@ -332,7 +342,10 @@ const ClientTable: React.FC = () => {
 
   const totalEntries = clients.length;
   const totalPages = Math.ceil(totalEntries / entriesPerPage);
-  const currentEntries = clients.slice((currentPage - 1) * entriesPerPage, currentPage * entriesPerPage);
+  const currentEntries = clients.slice(
+    (currentPage - 1) * entriesPerPage,
+    currentPage * entriesPerPage
+  );
 
   if (loading) {
     return <div>Loading...</div>;
@@ -361,23 +374,41 @@ const ClientTable: React.FC = () => {
         <tbody>
           {currentEntries.map((client, index) => (
             <tr key={index}>
-              <td className="py-2 px-4 border-b text-center">{client.username}</td>
+              <td className="py-2 px-4 border-b text-center">
+                {client.username}
+              </td>
               <td className="py-2 px-4 border-b text-center">{client.id}</td>
-              <td className="py-2 px-4 border-b text-center">{client.registrationdate}</td>
-              <td className="py-2 px-4 border-b text-green-600  text-center">{client.accountstatus}</td>
-              <td className="py-2 px-4 border-b  text-center">{client.email}</td>
-              <td className="py-2 px-4 border-b  text-center">{client.industrytype}</td>
-              <td className="py-2 px-4 border-b  text-center">{client.companyregtype}</td>
+              <td className="py-2 px-4 border-b text-center">
+                {client.registrationdate}
+              </td>
+              <td className="py-2 px-4 border-b text-green-600  text-center">
+                {client.accountstatus}
+              </td>
+              <td className="py-2 px-4 border-b  text-center">
+                {client.email}
+              </td>
+              <td className="py-2 px-4 border-b  text-center">
+                {client.industrytype}
+              </td>
+              <td className="py-2 px-4 border-b  text-center">
+                {client.companyregtype}
+              </td>
               <td className="py-2 px-4 border-b">
                 <div className="flex justify-center">
-                  <button className="text-gray-500 hover:text-gray-700" onClick={() => handleEdit(client)}>
+                  <button
+                    className="text-gray-500 hover:text-gray-700"
+                    onClick={() => handleEdit(client)}
+                  >
                     <FaPen />
                   </button>
                 </div>
               </td>
               <td className="py-2 px-4 border-b">
                 <div className="flex justify-center">
-                  <button className="text-gray-500 hover:text-gray-700" onClick={() => handleDelete(client)}>
+                  <button
+                    className="text-gray-500 hover:text-gray-700"
+                    onClick={() => handleDelete(client)}
+                  >
                     <FaTrash />
                   </button>
                 </div>
@@ -388,10 +419,16 @@ const ClientTable: React.FC = () => {
       </table>
       <div className="flex justify-between items-center mt-4">
         <div>
-          Showing {(currentPage - 1) * entriesPerPage + 1} to {Math.min(currentPage * entriesPerPage, totalEntries)} of {totalEntries} entries
+          Showing {(currentPage - 1) * entriesPerPage + 1} to{" "}
+          {Math.min(currentPage * entriesPerPage, totalEntries)} of{" "}
+          {totalEntries} entries
         </div>
         <div className="flex items-center">
-          <select value={entriesPerPage} onChange={handleEntriesChange} className="border px-2 py-1 mx-1">
+          <select
+            value={entriesPerPage}
+            onChange={handleEntriesChange}
+            className="border px-2 py-1 mx-1"
+          >
             <option value={10}>10</option>
             <option value={20}>20</option>
             <option value={30}>30</option>
@@ -400,7 +437,9 @@ const ClientTable: React.FC = () => {
           {Array.from({ length: totalPages }, (_, index) => (
             <button
               key={index}
-              className={`border px-2 py-1 mx-1 ${index + 1 === currentPage ? 'bg-gray-300' : ''}`}
+              className={`border px-2 py-1 mx-1 ${
+                index + 1 === currentPage ? "bg-gray-300" : ""
+              }`}
               onClick={() => setCurrentPage(index + 1)}
             >
               {index + 1}
@@ -422,7 +461,12 @@ const ClientTable: React.FC = () => {
                 type="text"
                 className="border p-2 w-full"
                 value={selectedClient.username}
-                onChange={(e) => setSelectedClient({ ...selectedClient, username: e.target.value })}
+                onChange={(e) =>
+                  setSelectedClient({
+                    ...selectedClient,
+                    username: e.target.value,
+                  })
+                }
               />
             </div>
             <div>
@@ -431,7 +475,12 @@ const ClientTable: React.FC = () => {
                 type="text"
                 className="border p-2 w-full"
                 value={selectedClient.accountstatus}
-                onChange={(e) => setSelectedClient({ ...selectedClient, accountstatus: e.target.value })}
+                onChange={(e) =>
+                  setSelectedClient({
+                    ...selectedClient,
+                    accountstatus: e.target.value,
+                  })
+                }
               />
             </div>
             <div>
@@ -440,7 +489,12 @@ const ClientTable: React.FC = () => {
                 type="email"
                 className="border p-2 w-full"
                 value={selectedClient.email}
-                onChange={(e) => setSelectedClient({ ...selectedClient, email: e.target.value })}
+                onChange={(e) =>
+                  setSelectedClient({
+                    ...selectedClient,
+                    email: e.target.value,
+                  })
+                }
               />
             </div>
             <div>
@@ -449,7 +503,12 @@ const ClientTable: React.FC = () => {
                 type="text"
                 className="border p-2 w-full"
                 value={selectedClient.industrytype}
-                onChange={(e) => setSelectedClient({ ...selectedClient, industrytype: e.target.value })}
+                onChange={(e) =>
+                  setSelectedClient({
+                    ...selectedClient,
+                    industrytype: e.target.value,
+                  })
+                }
               />
             </div>
             <div>
@@ -458,7 +517,12 @@ const ClientTable: React.FC = () => {
                 type="text"
                 className="border p-2 w-full"
                 value={selectedClient.companyregtype}
-                onChange={(e) => setSelectedClient({ ...selectedClient, companyregtype: e.target.value })}
+                onChange={(e) =>
+                  setSelectedClient({
+                    ...selectedClient,
+                    companyregtype: e.target.value,
+                  })
+                }
               />
             </div>
           </div>
@@ -480,11 +544,14 @@ const ClientTable: React.FC = () => {
 
 const ManageClients: React.FC = () => {
   return (
-    <LayoutComponent title="Client Management" subtitle="Manage Clients">
+    <LayoutComponent
+      title="Client Management"
+      link="/manage-clients"
+      subtitle="Manage Clients"
+    >
       <ClientTable />
     </LayoutComponent>
   );
 };
 
 export default ManageClients;
-

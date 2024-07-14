@@ -576,60 +576,62 @@ const APIKeyManagement: React.FC = () => {
             <div className="text-lg font-semibold">Generate API Keys</div>
             <FaEllipsis onClick={clearInputs} className="cursor-pointer" />
           </div>
-          <div className="flex justify-between">
-            <div className="flex items-center mb-4 grow">
-              <select
-                className="border p-2 mr-4 w-[80%] rounded-md"
-                value={selectedClient}
-                onChange={(e) => setSelectedClient(e.target.value)}
-              >
-                <option value="">Select Client</option>
-                {apiKeys.map((key, index) => (
-                  <option key={index} value={key.id.toString()}>
-                    {key.username}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div className="grow">
-              <div className="flex items-center mb-4">
-                <label className="mb-2 w-24">API KEY</label>
-                <div className="grow flex border rounded">
-                  <input
-                    className="p-2 grow border-none focus:outline-none rounded-md"
-                    type="text"
-                    value={apiKey}
-                    readOnly
-                  />
-                  <button
-                    className="p-2 rounded"
-                    onClick={() => copyToClipboard(apiKey)}
-                  >
-                    <FaRegCopy />
-                  </button>
+          <div className="flex justify-between items-center">
+            <div className="flex items-center mr-2 w-full justify-between">
+              <div className="w-1/2 mr-4">
+                <select
+                  className="border w-full p-2 mr-4 rounded-md grow"
+                  value={selectedClient}
+                  onChange={(e) => setSelectedClient(e.target.value)}
+                >
+                  <option value="">Select Client</option>
+                  {apiKeys.map((key, index) => (
+                    <option key={index} value={key.id.toString()}>
+                      {key.username}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className="grow">
+                <div className="flex items-center mb-4">
+                  <label className="mb-2 w-20">API KEY</label>
+                  <div className="grow flex border rounded">
+                    <input
+                      className="p-2 grow border-none focus:outline-none rounded-md"
+                      type="text"
+                      value={apiKey}
+                      readOnly
+                    />
+                    <button
+                      className="p-2 rounded"
+                      onClick={() => copyToClipboard(apiKey)}
+                    >
+                      <FaRegCopy />
+                    </button>
+                  </div>
+                </div>
+                <div className="flex items-center">
+                  <label className="mb-2 w-20">Secret</label>
+                  <div className="flex grow border rounded">
+                    <input
+                      className="p-2 grow border-none focus:outline-none rounded-md"
+                      type="password"
+                      value={apiSecret}
+                      readOnly
+                    />
+                    <button
+                      className="p-2 rounded"
+                      onClick={() => copyToClipboard(apiSecret)}
+                    >
+                      <FaRegCopy />
+                    </button>
+                  </div>
                 </div>
               </div>
-              <div className="flex items-center">
-                <label className="mb-2 w-24">Secret</label>
-                <div className="grow flex border rounded">
-                  <input
-                    className="grow p-2 border-none focus:outline-none rounded-md"
-                    type="password"
-                    value={apiSecret}
-                    readOnly
-                  />
-                  <button
-                    className="p-2 rounded"
-                    onClick={() => copyToClipboard(apiSecret)}
-                  >
-                    <FaRegCopy />
-                  </button>
-                </div>
-              </div>
             </div>
-            <div className="grow flex justify-end items-center">
+            <div className="">
               <button
-                className="bg-green-500 text-white px-4 py-2 rounded  h-10 flex justify-between hover:bg-green-700"
+                className="bg-green-500 text-white px-4 py-2 rounded  flex justify-between hover:bg-green-700 text-nowrap"
                 onClick={generateAPIKey}
               >
                 <div className="flex items-center gap-4">
@@ -792,7 +794,11 @@ const APIKeyManagement: React.FC = () => {
 
 const ApiKeys: React.FC = () => {
   return (
-    <LayoutComponent title="Client Management" subtitle="API Keys">
+    <LayoutComponent
+      title="Client Management"
+      link="/api-keys"
+      subtitle="API Keys"
+    >
       <APIKeyManagement />
     </LayoutComponent>
   );

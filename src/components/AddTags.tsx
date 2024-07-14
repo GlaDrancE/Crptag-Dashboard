@@ -114,36 +114,37 @@ const BatchAddTag: React.FC = () => {
   };
 
   return (
-    <div className="p-4 border rounded shadow-md bg-white">
+    <div className="p-4 w-full rounded shadow-md bg-white">
       <LoadingModal loading={loading} />
       {modalMessage && (
         <Modal message={modalMessage} onClose={() => setModalMessage("")} />
       )}
-      <div className="flex justify-between">
+      <div>
         <div className="text-lg font-semibold mb-4">Batch Add Tag</div>
-        <FaEllipsis onClick={clearInputs} className="cursor-pointer" />
       </div>
-      <div className="flex items-center mb-4 justify-between rounded-md">
-        <select className="border p-2 mr-4 w-[25%] rounded-md">
-          <option value="">PICC + encFileData + CMAC (203)</option>
-        </select>
-        <input
-          type="file"
-          onChange={handleFileChange}
-          className="hidden"
-          id="csvUpload"
-        />
+      <div className="flex items-center mb-4">
+        <div className="flex items-center w-full">
+          <select className="border p-2 mr-4 w-1/2 rounded-md">
+            <option value="">PICC + encFileData + CMAC (203)</option>
+          </select>
+          <input
+            type="file"
+            onChange={handleFileChange}
+            className="hidden"
+            id="csvUpload"
+          />
+          <button
+            className="bg-green-500 text-white px-4 py-2 rounded-md  hover:bg-green-700"
+            onClick={() => document.getElementById("csvUpload")?.click()}
+          >
+            <div className="flex items-center gap-5">
+              <FaFileArrowUp />
+              <span>Upload CSV</span>
+            </div>
+          </button>
+        </div>
         <button
-          className="bg-green-500 text-white px-4 py-2 rounded-md mr-[40%] hover:bg-green-700"
-          onClick={() => document.getElementById("csvUpload")?.click()}
-        >
-          <div className="flex items-center gap-5">
-            <FaFileArrowUp />
-            <span>Upload CSV</span>
-          </div>
-        </button>
-        <button
-          className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-700"
+          className="bg-blue-500 text-nowrap text-white px-4 py-2 rounded-md hover:bg-blue-700"
           onClick={handleDownload}
         >
           <div className="flex items-center gap-5">
@@ -234,45 +235,44 @@ const ManualAddTag: React.FC = () => {
   };
 
   return (
-    <div className="p-4 border rounded shadow-md mt-6 bg-white">
+    <div className="p-4 border rounded-lg shadow-md mt-6 bg-white">
       <LoadingModal loading={loading} />
       {modalMessage && (
         <Modal message={modalMessage} onClose={() => setModalMessage("")} />
       )}
-      <div className="flex justify-between">
+      <div>
         <div className="text-lg font-semibold mb-4">Manual Add</div>
-        <FaEllipsis onClick={clearInputs} className="cursor-pointer" />
       </div>
-      <div className="flex mb-4">
-        <div className="grow">
+      <div className="mb-4">
+        <div className="">
           <div className="flex flex-col">
             <input
-              className="border p-2 mr-4 grow mb-2 rounded-md"
+              className="border p-2 mr-4 mb-2 rounded-md"
               placeholder="UID"
               value={uid}
               onChange={(e) => setUid(e.target.value)}
             />
             <div className="flex">
               <input
-                className="rounded-md border p-2 mr-4 flex-grow mb-2"
+                className="rounded-md border p-2 flex-grow mr-4 mb-2"
                 placeholder="Generated Key 0"
                 value={keys.key0}
                 readOnly
               />
               <input
-                className="rounded-md border p-2 mr-4 flex-grow mb-2"
+                className="rounded-md border p-2 flex-grow mr-4 mb-2"
                 placeholder="Generated Key 1"
                 value={keys.key1}
                 readOnly
               />
               <input
-                className="rounded-md border p-2 mr-4 flex-grow mb-2"
+                className="rounded-md border p-2 flex-grow mr-4 mb-2"
                 placeholder="Generated Key 2"
                 value={keys.key2}
                 readOnly
               />
               <input
-                className="rounded-md border p-2 mr-4 flex-grow mb-2"
+                className="rounded-md border p-2 flex-grow mr-4 mb-2"
                 placeholder="Generated Key 3"
                 value={keys.key3}
                 readOnly
@@ -336,7 +336,11 @@ const ManualAddTag: React.FC = () => {
 
 const AddTags: React.FC = () => {
   return (
-    <LayoutComponent title="Tag Management" subtitle="Add Tags">
+    <LayoutComponent
+      title="Tag Management"
+      link="/add-tags"
+      subtitle="Add Tags"
+    >
       <BatchAddTag />
       <ManualAddTag />
     </LayoutComponent>

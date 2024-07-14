@@ -17,7 +17,6 @@ import {
   ProjectionScale,
   SizeScale,
 } from "chartjs-chart-geo";
-import Papa from "papaparse";
 import ChartDataLabels from "chartjs-plugin-datalabels";
 
 ChartJS.register(

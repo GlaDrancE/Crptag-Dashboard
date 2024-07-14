@@ -7,8 +7,11 @@ import LayoutComponent from "./Layout";
 
 const ApiDocs: React.FC = () => {
   return (
-    <LayoutComponent title="Documentation" subtitle="API Docs">
-      <></>
+    <LayoutComponent title="Documentation" link="/api-docs" subtitle="API Docs">
+      <iframe
+        src="https://docs.cryptag.in/"
+        className="min-h-screen h-full w-full"
+      ></iframe>
     </LayoutComponent>
   );
 };

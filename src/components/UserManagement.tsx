@@ -426,7 +426,11 @@ const UserManagement1: React.FC = () => {
 
 const UserManagement: React.FC = () => {
   return (
-    <LayoutComponent title="Admin Settings" subtitle="User Management">
+    <LayoutComponent
+      title="Admin Settings"
+      link={"/admin-setting"}
+      subtitle="User Management"
+    >
       <UserManagement1 />
     </LayoutComponent>
   );

@@ -31,16 +31,15 @@ const ActivityLog = () => {
 
   return (
     <div className="p-2 bg-white shadow-md w-full rounded-lg nunito-normal">
-      <div className="flex justify-between w-full border-b">
+      <div className="w-full border-b">
         <h3 className="p-2 mb-2">Activity Log</h3>
-        <BsThreeDots />
       </div>
       <ul>
         {activities.map((a, index) => (
-          <li key={index} className="mb-2">
+          <li key={index} className="mb-4">
             <div className="flex items-center">
-              <div className="w-11 h-10 rounded-full bg-primary flex items-center justify-center">
-                <HiPlusSm color="white" />
+              <div className="rounded-full bg-primary p-2 flex items-center justify-center">
+                <HiPlusSm color="white" className="w-5 h-5" />
               </div>
               <div className="flex flex-col w-full ml-1">
                 <div className=" text-sm">

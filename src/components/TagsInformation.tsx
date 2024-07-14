@@ -728,7 +728,11 @@ const TagInfoTable = () => {
 
 const TagsInformation: React.FC = () => {
   return (
-    <LayoutComponent title="Tag Management" subtitle="Tags Information">
+    <LayoutComponent
+      title="Tag Management"
+      link="/tags-information"
+      subtitle="Tags Information"
+    >
       <TagInfoTable />
     </LayoutComponent>
   );

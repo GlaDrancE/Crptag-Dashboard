@@ -6,7 +6,7 @@ import {
   ChevronUp,
 } from "lucide-react";
 import { ReactElement, useState } from "react";
-import { Link, To } from "react-router-dom";
+import { Link, NavLink, To } from "react-router-dom";
 interface SidebarSubSectionProps {
   sectionName: string;
   sections: string[];
@@ -22,6 +22,7 @@ const SidebarLinks = ({
   isDirectLink = false,
 }: SidebarSubSectionProps) => {
   const [isExpanded, setIsExpanded] = useState(false);
+  const [isActiveLink, setIsActiveLink] = useState(false);
 
   const handleExpand = (directLink: boolean) => {
     if (directLink) return;
@@ -29,7 +30,11 @@ const SidebarLinks = ({
   };
 
   return (
-    <div className="w-full my-1 space-y-4 hover:!text-[#2267ba] ">
+    <div
+      className={`w-full my-1 space-y-4 hover:!text-[#2267ba] ${
+        isActiveLink && "text-[#2267ba]"
+      }`}
+    >
       <div
         className={`relative rounded-lg h-10 px-2 bg-gray-100 w-full min-w-full flex justify-center items-center cursor-default ${
           isDirectLink && "!cursor-pointer"
@@ -44,12 +49,17 @@ const SidebarLinks = ({
           {/* <img className="h-6 w-6 mr-2" alt="icon" src={sectionIcon} /> */}
           <div className="w-6">{sectionIcon}</div>
           {isDirectLink ? (
-            <Link
+            <NavLink
               to={`${directLink}`}
-              className={`text-[14px] text-black text-nowrap flex-grow font-sans font-medium overflow-hidden`}
+              className={({ isActive }) => {
+                if (isActive) {
+                  setIsActiveLink(true);
+                }
+                return `text-[14px] text-black text-nowrap flex-grow font-sans font-medium overflow-hidden`;
+              }}
             >
               {sectionName}
-            </Link>
+            </NavLink>
           ) : (
             <div
               className={`text-[14px] text-nowrap overflow-hidden  text-black flex-grow font-sans font-medium`}
@@ -78,15 +88,22 @@ const SidebarLinks = ({
               key={index}
               className="text-[14px] text-black whitespace-nowrap mb-2 "
             >
-              <Link
+              <NavLink
                 to={`/${section.replace(/\s+/g, "-").toLowerCase()}`}
-                className="flex items-center"
+                className={({ isActive }) => {
+                  if (isActive) {
+                    setIsActiveLink(true);
+                  }
+                  return isActive
+                    ? "text-primary active-link"
+                    : "flex items-center text-black";
+                }}
               >
                 <span className="mr-2 font-bold text-lg scale-x-150 opacity-20">
                   -
                 </span>{" "}
                 {section}
-              </Link>
+              </NavLink>
             </li>
           ))}
         </ul>

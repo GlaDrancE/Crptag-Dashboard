@@ -181,6 +181,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import MapChart from "./MapChart";
+import { EncodeTagsData, UsedTagsData } from "./Chart";
 
 // Register Chart.js components
 Chart.register(
@@ -323,14 +324,14 @@ const UsageAnalytics1: React.FC = () => {
             </div>
             <div className="flex justify-between gap-5">
               <div className="grow">
-                <h3 className="text-gray-500">Total Scan Count</h3>
+                <h3 className="text-gray-500 text-xs">Total Scan Count</h3>
                 <p className="text-blue-600">{overviewData.totalScanCount}</p>
-                <img className="mt-3" src="/blue-line.png" alt="" />
+                <EncodeTagsData />
               </div>
               <div className="grow">
-                <h3 className="text-gray-500">Originality Ratio</h3>
+                <h3 className="text-gray-500 text-xs">Originality Ratio</h3>
                 <p className="text-blue-600">{overviewData.originalityRatio}</p>
-                <img className="mt-3" src="/green-line.png" alt="" />
+                <UsedTagsData />
               </div>
             </div>
           </div>
@@ -431,7 +432,11 @@ const UsageAnalytics1: React.FC = () => {
 
 const UsageAnalytics: React.FC = () => {
   return (
-    <LayoutComponent title="Analytics" subtitle="Usage Analytics">
+    <LayoutComponent
+      title="Analytics"
+      link="/usage-analytics"
+      subtitle="Usage Analytics"
+    >
       <UsageAnalytics1 />
     </LayoutComponent>
   );

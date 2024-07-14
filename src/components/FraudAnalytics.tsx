@@ -31,6 +31,7 @@ import {
   Cell,
 } from "recharts";
 import MapChart, { MapData } from "./MapChart";
+import { BlacklistData, FakeScannedData } from "./Chart";
 
 const data = [
   { name: "Blacklisted UID", value: 126 },
@@ -563,12 +564,12 @@ const FraudAnalytics1: React.FC = () => {
               <div className="grow">
                 <h3 className="text-gray-500">Total Fake Count</h3>
                 <p className="text-blue-600">{overviewData.totalFakeCount}</p>
-                <img className="mt-3" src="/blue-line.png" alt="" />
+                <FakeScannedData />
               </div>
               <div className="grow">
                 <h3 className="text-gray-500">Total Blacklist</h3>
                 <p className="text-blue-600">{overviewData.totalBlacklist}</p>
-                <img className="mt-3" src="/green-line.png" alt="" />
+                <BlacklistData />
               </div>
             </div>
           </div>
@@ -654,7 +655,11 @@ const FraudAnalytics1: React.FC = () => {
 
 const FraudAnalytics: React.FC = () => {
   return (
-    <LayoutComponent title="Analytics" subtitle="Fraud Analytics">
+    <LayoutComponent
+      title="Analytics"
+      link="/fraud-analytics"
+      subtitle="Fraud Analytics"
+    >
       <FraudAnalytics1 />
     </LayoutComponent>
   );

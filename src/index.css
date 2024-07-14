@@ -51,8 +51,19 @@ body {
 .bg-calender {
   background-color: #2673dd08;
 }
+.bg-success {
+  background-color: #4ab74b;
+}
+.bg-danger {
+  background-color: #d34b59;
+}
 
 .regionTextCount::-webkit-scrollbar {
   appearance: none;
   display: none;
+}
+.footer-copyright {
+  font-size: 0.7rem;
+  font-weight: 300;
+  padding-top: 2%;
 }
